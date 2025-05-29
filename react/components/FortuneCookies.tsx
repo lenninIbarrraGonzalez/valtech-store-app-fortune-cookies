@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
+interface IFortuneCookie {
+  id: string;
+  CookieFortune: string;
+}
+
+type InfoCookiesState = {
+  data: IFortuneCookie[];
+  isLoading: boolean;
+  hasError: boolean;
+  error: null | string;
+};
+
 const API_KEY = "vtexappkey-valtech-NFMZFZ";
 const API_TOKEN =
   "LQRXPQPTDBKGKWRVCANKXTPOLKBETQHSZQQQDLHZYQIEAAPAXXOOBBTHDAIVDFHMOJEKONISITNIVXQNAANCBSUMLUWDKTFJLMSFGKVVFRQYYHIISKVRPKSNWSVJQSNR";
@@ -13,12 +25,13 @@ const authHeaders = {
 };
 
 const FortuneCookies = () => {
-  const [infoCookies, setinfoCookies] = useState({
+  const [infoCookies, setinfoCookies] = useState<InfoCookiesState>({
     data: [],
     isLoading: true,
     hasError: false,
-    error: null as null | string,
+    error: null,
   });
+  const [luckyNumber, setLuckyNumber] = useState<string>("");
 
   const timestamp = new Date().getTime();
 
@@ -49,7 +62,14 @@ const FortuneCookies = () => {
     }
   };
 
-  console.log(infoCookies);
+  console.log(infoCookies)
+
+  const generateLuckyNumber = () => {
+    const getRandom = (length: number) =>
+      Array.from({ length }, () => Math.floor(Math.random() * 10)).join("");
+    const lucky = `${getRandom(2)}-${getRandom(2)}-${getRandom(4)}`;
+    setLuckyNumber(lucky);
+  };
 
   useEffect(() => {
     fetchData();
@@ -60,9 +80,8 @@ const FortuneCookies = () => {
     <div>
       <h1>Fortune Cookies</h1>
       <h3>Aquí va la Cookie</h3>
-      <h5>Numero Random</h5>
-      {/* <h5>{JSON.stringify(infoCookies)}</h5> */}
-      <button>Obtener galleta de la fortuna</button>
+      <h5>Numero Random: {luckyNumber}</h5>
+      <button onClick={generateLuckyNumber}>Obtener galleta de la fortuna</button>
     </div>
   )
 }
