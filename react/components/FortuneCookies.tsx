@@ -32,6 +32,7 @@ const FortuneCookies = () => {
     error: null,
   });
   const [luckyNumber, setLuckyNumber] = useState<string>("");
+  const [currentCookie, setCurrentCookie] = useState<string>("");
 
   const timestamp = new Date().getTime();
 
@@ -62,13 +63,19 @@ const FortuneCookies = () => {
     }
   };
 
-  console.log(infoCookies)
+  const handleButtonClick = () => {
 
-  const generateLuckyNumber = () => {
     const getRandom = (length: number) =>
       Array.from({ length }, () => Math.floor(Math.random() * 10)).join("");
     const lucky = `${getRandom(2)}-${getRandom(2)}-${getRandom(4)}`;
     setLuckyNumber(lucky);
+
+    if (infoCookies.data.length > 0) {
+      const randomIndex = Math.floor(Math.random() * infoCookies.data.length);
+      setCurrentCookie(infoCookies.data[randomIndex].CookieFortune);
+    } else {
+      setCurrentCookie("No hay galletas disponibles.");
+    }
   };
 
   useEffect(() => {
@@ -79,9 +86,9 @@ const FortuneCookies = () => {
   return (
     <div>
       <h1>Fortune Cookies</h1>
-      <h3>Aquí va la Cookie</h3>
+      <h3>{currentCookie ? currentCookie : "Presiona el boton para obtener una galleta de la suerte"}</h3>
       <h5>Numero Random: {luckyNumber}</h5>
-      <button onClick={generateLuckyNumber}>Obtener galleta de la fortuna</button>
+      <button onClick={handleButtonClick}>Obtener galleta de la fortuna</button>
     </div>
   )
 }
