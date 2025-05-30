@@ -38,6 +38,9 @@ const FortuneCookies = () => {
     handleGetCookie,
   } = useFortuneCookies();
 
+  // Agrega este log para ver el estado de las galletas
+  console.log('Estado de cookies:', cookies);
+
   if (loading) {
     return (
         <FortuneLoadingScreen
@@ -47,41 +50,39 @@ const FortuneCookies = () => {
   }
 
   return (
-    <div className={`${handles.container}`}>
-      {showSpinner && (
-        <SpinerSelectionCookie
-          generatingContainer={handles.generatingContainer}
-        />
-      )}
+  <div className={`${handles.container}`}>
+    {showSpinner && (
+      <SpinerSelectionCookie generatingContainer={handles.generatingContainer} />
+    )}
 
-      {!showSpinner && currentCookie && (
-        <ShowCookieResult
-          currentCookie={currentCookie}
-          luckyNumber={luckyNumber}
-          fortuneCard={handles.fortuneCard}
-          fortuneTitle={handles.fortuneTitle}
-          fortuneText={handles.fortuneText}
-          luckySection={handles.luckySection}
-          luckyNum={handles.luckyNumber}
-          cookieId={handles.cookieId}
-        />
-      )}
+    {!showSpinner && cookies.length === 0 && (
+      <EmptyCookieState
+        containerInfo={handles.containerInfo}
+        cookieIcon={handles.cookieIcon}
+      />
+    )}
 
-      {!showSpinner && !currentCookie && cookies.length > 0 && (
-          <StartMessageCookie
-            containerInfo={handles.containerInfo}
-            cookieIcon={handles.cookieIcon}
-          />
-      )}
+    {!showSpinner && currentCookie && (
+      <ShowCookieResult
+        currentCookie={currentCookie}
+        luckyNumber={luckyNumber}
+        fortuneCard={handles.fortuneCard}
+        fortuneTitle={handles.fortuneTitle}
+        fortuneText={handles.fortuneText}
+        luckySection={handles.luckySection}
+        luckyNum={handles.luckyNumber}
+        cookieId={handles.cookieId}
+      />
+    )}
 
-      {!showSpinner && cookies.length === 0 && (
-        <EmptyCookieState
-            containerInfo={handles.containerInfo}
-            cookieIcon={handles.cookieIcon}
-        />
-      )}
+    {!showSpinner && !currentCookie && cookies.length > 0 && (
+      <StartMessageCookie
+        containerInfo={handles.containerInfo}
+        cookieIcon={handles.cookieIcon}
+      />
+    )}
 
-      <div className={`${handles.buttonSend}`}>
+    <div className={`${handles.buttonSend}`}>
         <button
           onClick={handleGetCookie}
           disabled={showSpinner || cookies.length === 0}
@@ -92,8 +93,8 @@ const FortuneCookies = () => {
           {showSpinner ? '🥠 Buena suerte...' : '🥠 Obtener galleta de la fortuna'}
         </button>
       </div>
-    </div>
-  );
+  </div>
+)
 };
 
 export default FortuneCookies;

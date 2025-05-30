@@ -12,8 +12,18 @@ export function useFortuneCookies() {
 
   useEffect(() => {
     fetchFortuneCookies()
-      .then(setCookies)
-      .catch(() => setCookies([]))
+      .then((data) => {
+        setCookies(data)
+        if (data.length === 0) {
+          setCurrentCookie(null)
+          setLuckyNumber('')
+        }
+      })
+      .catch(() => {
+        setCookies([])
+        setCurrentCookie(null)
+        setLuckyNumber('')
+      })
       .finally(() => setLoading(false))
   }, [])
 
