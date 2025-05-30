@@ -50,51 +50,54 @@ const FortuneCookies = () => {
   }
 
   return (
-  <div className={`${handles.container}`}>
-    {showSpinner && (
-      <SpinerSelectionCookie generatingContainer={handles.generatingContainer} />
-    )}
+    <div className={`${handles.container}`}>
+      {showSpinner && (
+        <SpinerSelectionCookie generatingContainer={handles.generatingContainer} />
+      )}
 
-    {!showSpinner && cookies.length === 0 && (
-      <EmptyCookieState
-        containerInfo={handles.containerInfo}
-        cookieIcon={handles.cookieIcon}
-      />
-    )}
+      {!showSpinner && cookies.length === 0 && (
+        <EmptyCookieState
+          containerInfo={handles.containerInfo}
+          cookieIcon={handles.cookieIcon}
+        />
+      )}
 
-    {!showSpinner && currentCookie && (
-      <ShowCookieResult
-        currentCookie={currentCookie}
-        luckyNumber={luckyNumber}
-        fortuneCard={handles.fortuneCard}
-        fortuneTitle={handles.fortuneTitle}
-        fortuneText={handles.fortuneText}
-        luckySection={handles.luckySection}
-        luckyNum={handles.luckyNumber}
-        cookieId={handles.cookieId}
-      />
-    )}
+      {!showSpinner && currentCookie && (
+        <ShowCookieResult
+          currentCookie={currentCookie}
+          luckyNumber={luckyNumber}
+          fortuneCard={handles.fortuneCard}
+          fortuneTitle={handles.fortuneTitle}
+          fortuneText={handles.fortuneText}
+          luckySection={handles.luckySection}
+          luckyNum={handles.luckyNumber}
+          cookieId={handles.cookieId}
+        />
+      )}
 
-    {!showSpinner && !currentCookie && cookies.length > 0 && (
-      <StartMessageCookie
-        containerInfo={handles.containerInfo}
-        cookieIcon={handles.cookieIcon}
-      />
-    )}
+      {!showSpinner && !currentCookie && cookies.length > 0 && (
+        <StartMessageCookie
+          containerInfo={handles.containerInfo}
+          cookieIcon={handles.cookieIcon}
+        />
+      )}
 
-    <div className={`${handles.buttonSend}`}>
-        <button
-          onClick={handleGetCookie}
-          disabled={showSpinner || cookies.length === 0}
-          className={`${handles.mainButton} ${
-            (showSpinner || cookies.length === 0) ? handles.buttonDisabled : handles.buttonEnabled
-          }`}
-        >
-          {showSpinner ? '🥠 Buena suerte...' : '🥠 Obtener galleta de la fortuna'}
-        </button>
-      </div>
-  </div>
-)
+      {/* Oculta el botón si no existen galletas */}
+      {cookies.length > 0 && (
+        <div className={`${handles.buttonSend}`}>
+          <button
+            onClick={handleGetCookie}
+            disabled={showSpinner || cookies.length === 0}
+            className={`${handles.mainButton} ${
+              (showSpinner || cookies.length === 0) ? handles.buttonDisabled : handles.buttonEnabled
+            }`}
+          >
+            {showSpinner ? '🥠 Buena suerte...' : '🥠 Obtener galleta de la fortuna'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
 };
 
 export default FortuneCookies;
