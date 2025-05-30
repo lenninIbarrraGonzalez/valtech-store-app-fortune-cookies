@@ -1,13 +1,34 @@
 import React from 'react';
-import { useFortuneCookies } from '../hooks/useFortuneCookies';
-import styles from '../styles/styles.css';
 import { SpinerSelectionCookie } from './SpinerSelectionCookie';
 import { ShowCookieResult } from './ShowCookieResult';
 import { StartMessageCookie } from './StartMessageCookie';
 import { EmptyCookieState } from './EmptyCookieState';
 import { FortuneLoadingScreen } from './FortuneLoadingScreen';
+import { useFortuneCookies } from '../hooks/useFortuneCookies';
+import { useCssHandles } from 'vtex.css-handles';
+
+const CSS_HANDLES = [
+    'container',
+    'containerInfo',
+    'cookieIcon',
+    'buttonSend',
+    'mainButton',
+    'buttonDisabled',
+    'buttonEnabled',
+    'containerInfo',
+    'loadingContainer',
+    'generatingContainer',
+    'fortuneCard',
+    'fortuneTitle',
+    'fortuneText',
+    'luckySection',
+    'luckyNum',
+    'cookieId'
+
+] as const
 
 const FortuneCookies = () => {
+  const handles = useCssHandles(CSS_HANDLES);
   const {
     cookies,
     currentCookie,
@@ -19,37 +40,53 @@ const FortuneCookies = () => {
 
   if (loading) {
     return (
-        <FortuneLoadingScreen/>
+        <FortuneLoadingScreen
+          loadingContainer={handles.loadingContainer}
+        />
     );
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${handles.container}`}>
       {showSpinner && (
-        <SpinerSelectionCookie/>
+        <SpinerSelectionCookie
+          generatingContainer={handles.generatingContainer}
+        />
       )}
 
       {!showSpinner && currentCookie && (
         <ShowCookieResult
           currentCookie={currentCookie}
           luckyNumber={luckyNumber}
+          fortuneCard={handles.fortuneCard}
+          fortuneTitle={handles.fortuneTitle}
+          fortuneText={handles.fortuneText}
+          luckySection={handles.luckySection}
+          luckyNum={handles.luckyNumber}
+          cookieId={handles.cookieId}
         />
       )}
 
       {!showSpinner && !currentCookie && cookies.length > 0 && (
-          <StartMessageCookie/>
+          <StartMessageCookie
+            containerInfo={handles.containerInfo}
+            cookieIcon={handles.cookieIcon}
+          />
       )}
 
       {!showSpinner && cookies.length === 0 && (
-        <EmptyCookieState/>
+        <EmptyCookieState
+            containerInfo={handles.containerInfo}
+            cookieIcon={handles.cookieIcon}
+        />
       )}
 
-      <div className={styles.buttonContainer}>
+      <div className={`${handles.buttonSend}`}>
         <button
           onClick={handleGetCookie}
           disabled={showSpinner || cookies.length === 0}
-          className={`${styles.mainButton} ${
-            (showSpinner || cookies.length === 0) ? styles.buttonDisabled : styles.buttonEnabled
+          className={`${handles.mainButton} ${
+            (showSpinner || cookies.length === 0) ? handles.buttonDisabled : handles.buttonEnabled
           }`}
         >
           {showSpinner ? '🥠 Buena suerte...' : '🥠 Obtener galleta de la fortuna'}

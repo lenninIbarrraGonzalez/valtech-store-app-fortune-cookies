@@ -1,10 +1,9 @@
 import React from 'react';
-import styles from '../styles/styles.css';
 
-export const EmptyCookieState = () => {
+export const EmptyCookieState = ({ containerInfo, cookieIcon }: { containerInfo: string, cookieIcon: string }) => {
   return (
-    <div className={styles.initialState}>
-      <div className={styles.cookieIcon}>📭</div>
+    <div className={containerInfo}>
+      <div className={cookieIcon}>📭</div>
       <h3>No hay galletas disponibles</h3>
     </div>
   )

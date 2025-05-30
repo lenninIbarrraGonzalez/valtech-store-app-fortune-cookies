@@ -1,11 +1,10 @@
 import React from 'react'
 import { Spinner } from 'vtex.styleguide';
-import styles from '../styles/styles.css';
 
-export const SpinerSelectionCookie = () => {
+export const SpinerSelectionCookie = ({ generatingContainer}: { generatingContainer: string }) => {
   return (
-    <div className={styles.generatingContainer}>
-          <Spinner />
+    <div className={generatingContainer}>
+          <Spinner color="#f59e0b" size={40}/>
           <p>Seleccionando tu galleta de la fortuna...</p>
     </div>
   )

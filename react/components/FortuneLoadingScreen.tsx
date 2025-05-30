@@ -1,11 +1,10 @@
 import React from 'react'
 import { Spinner } from 'vtex.styleguide';
-import styles from '../styles/styles.css';
 
-export const FortuneLoadingScreen = () => {
+export const FortuneLoadingScreen = ({ loadingContainer }: { loadingContainer: string }) => {
   return (
-    <div className={styles.loadingContainer}>
-        <Spinner />
+    <div className={loadingContainer}>
+        <Spinner color="#f59e0b" size={40}/>
         <p>Cargando galletas de la fortuna...</p>
     </div>
   )
