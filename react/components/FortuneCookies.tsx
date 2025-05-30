@@ -1,68 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Spinner } from 'vtex.styleguide';
+import { useFortuneCookies } from '../hooks/useFortuneCookies';
 import styles from '../styles/styles.css';
 
-interface IFortuneCookie {
-  id: string;
-  CookieFortune: string;
-}
-
-const API_KEY = "vtexappkey-valtech-NFMZFZ";
-const API_TOKEN = "LQRXPQPTDBKGKWRVCANKXTPOLKBETQHSZQQQDLHZYQIEAAPAXXOOBBTHDAIVDFHMOJEKONISITNIVXQNAANCBSUMLUWDKTFJLMSFGKVVFRQYYHIISKVRPKSNWSVJQSNR";
-
-const authHeaders = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-  "X-Vtex-Use-Https": "true",
-  "X-VTEX-API-AppKey": API_KEY,
-  "X-VTEX-API-AppToken": API_TOKEN,
-};
-
 const FortuneCookies = () => {
-  const [cookies, setCookies] = useState<IFortuneCookie[]>([]);
-  const [currentCookie, setCurrentCookie] = useState<IFortuneCookie | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [showSpinner, setShowSpinner] = useState(false);
-  const [luckyNumber, setLuckyNumber] = useState<string>("");
-
-  useEffect(() => {
-    const fetchCookies = async () => {
-      try {
-        const response = await fetch(
-          `/api/dataentities/CF/search?_fields=id,CookieFortune&_from=0&_to=99`,
-          {
-            method: "GET",
-            headers: authHeaders,
-          }
-        );
-        if (!response.ok) throw new Error();
-        const data: IFortuneCookie[] = await response.json();
-        setCookies(data);
-      } catch {
-        setCookies([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCookies();
-  }, []);
-
-  const generateLuckyNumber = () => {
-    const getRandom = (length: number) =>
-      Array.from({ length }, () => Math.floor(Math.random() * 10)).join("");
-    return `${getRandom(2)}-${getRandom(2)}-${getRandom(4)}`;
-  };
-
-  const handleGetCookie = () => {
-    if (cookies.length === 0) return;
-    setShowSpinner(true);
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * cookies.length);
-      setCurrentCookie(cookies[randomIndex]);
-      setLuckyNumber(generateLuckyNumber());
-      setShowSpinner(false);
-    }, 2000);
-  };
+  const {
+    cookies,
+    currentCookie,
+    loading,
+    showSpinner,
+    luckyNumber,
+    handleGetCookie,
+  } = useFortuneCookies();
 
   if (loading) {
     return (
