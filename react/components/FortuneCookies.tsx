@@ -6,6 +6,7 @@ import { EmptyCookieState } from './EmptyCookieState';
 import { FortuneLoadingScreen } from './FortuneLoadingScreen';
 import { useFortuneCookies } from '../hooks/useFortuneCookies';
 import { useCssHandles } from 'vtex.css-handles';
+import { useIntl } from 'react-intl'
 
 const CSS_HANDLES = [
     'container',
@@ -38,6 +39,8 @@ const FortuneCookies = () => {
     handleGetCookie,
   } = useFortuneCookies();
 
+  const intl = useIntl()
+
   // Agrega este log para ver el estado de las galletas
   console.log('Estado de cookies:', cookies);
 
@@ -45,6 +48,7 @@ const FortuneCookies = () => {
     return (
         <FortuneLoadingScreen
           loadingContainer={handles.loadingContainer}
+          intl={intl}
         />
     );
   }
@@ -52,13 +56,17 @@ const FortuneCookies = () => {
   return (
     <div className={`${handles.container}`}>
       {showSpinner && (
-        <SpinerSelectionCookie generatingContainer={handles.generatingContainer} />
+        <SpinerSelectionCookie
+          generatingContainer={handles.generatingContainer}
+          intl={intl}
+        />
       )}
 
       {!showSpinner && cookies.length === 0 && (
         <EmptyCookieState
           containerInfo={handles.containerInfo}
           cookieIcon={handles.cookieIcon}
+          intl={intl}
         />
       )}
 
@@ -79,10 +87,10 @@ const FortuneCookies = () => {
         <StartMessageCookie
           containerInfo={handles.containerInfo}
           cookieIcon={handles.cookieIcon}
+          intl={intl}
         />
       )}
 
-      {/* Oculta el botón si no existen galletas */}
       {cookies.length > 0 && (
         <div className={`${handles.buttonSend}`}>
           <button
@@ -92,7 +100,9 @@ const FortuneCookies = () => {
               (showSpinner || cookies.length === 0) ? handles.buttonDisabled : handles.buttonEnabled
             }`}
           >
-            {showSpinner ? '🥠 Buena suerte...' : '🥠 Obtener galleta de la fortuna'}
+            {showSpinner
+              ? `🥠 ${intl.formatMessage({ id: 'valtech.fortune-cookies.fortunecookies-btn-lucky' })}`
+              : `🥠 ${intl.formatMessage({ id: 'valtech.fortune-cookies.fortunecookies-btn-get' })}`}
           </button>
         </div>
       )}

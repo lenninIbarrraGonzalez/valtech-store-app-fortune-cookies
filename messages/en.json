@@ -1,4 +1,14 @@
 {
   "admin/test": "test",
-  "store/test": "test"
+  "store/test": "test",
+  "valtech.fortune-cookies.fortuneloadingscreen": "Loading fortune cookies...",
+  "valtech.fortune-cookies.startmessagecookie-discover": "¡Discover your fortune!",
+  "valtech.fortune-cookies.startmessagecookie-paragraph": "Press the button to get a fortune cookie",
+  "valtech.fortune-cookies.fortunecookies-btn-get": "Get fortune cookie",
+  "valtech.fortune-cookies.fortunecookies-btn-lucky": "Good luck...",
+  "valtech.fortune-cookies.spinerselectioncookie-msn": "Selecting your fortune cookie...",
+  "valtech.fortune-cookies.showcookieresult-title": "Your Fortune",
+  "valtech.fortune-cookies.showcookieresult-number": "Lucky number:",
+  "valtech.fortune-cookies.showcookieresult-id": "Cookie ID:",
+  "valtech.fortune-cookies.emptycookiestate-paragraph": "No cookies available."
 }

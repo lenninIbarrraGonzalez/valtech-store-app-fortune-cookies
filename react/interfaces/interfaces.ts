@@ -11,5 +11,5 @@ export interface ShowCookieResultProps {
   fortuneText: string;
   luckySection: string;
   luckyNum: string;
-  cookieId: string
+  cookieId: string;
 }
