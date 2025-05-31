@@ -9,14 +9,6 @@
   margin-bottom: 2rem;
 }
 
-/* Estados de carga y error */
-.loadingContainer,
-.errorContainer {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-
 /* Error al seleccionar */
 .selectionError {
   margin-top: 2rem;
