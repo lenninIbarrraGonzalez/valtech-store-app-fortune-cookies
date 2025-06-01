@@ -41,9 +41,6 @@ const FortuneCookies = () => {
 
   const intl = useIntl()
 
-  // Agrega este log para ver el estado de las galletas
-  console.log('Estado de cookies:', cookies);
-
   if (loading) {
     return (
         <FortuneLoadingScreen
