@@ -23,5 +23,9 @@
   },
   "resolutions": {
     "@types/jest": "26.0.15"
-  }
+  },
+  "moduleNameMapper": {
+  "^vtex.styleguide$": "<rootDir>/../__mocks__/vtex.styleguide.js",
+  "^vtex.css-handles$": "<rootDir>/../__mocks__/vtex.css-handles.js"
+}
 }
