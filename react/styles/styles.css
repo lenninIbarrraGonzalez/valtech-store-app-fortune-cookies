@@ -1,0 +1,19 @@
+/* Título principal */
+.title {
+  text-align: center;
+}
+
+/* Sección de información */
+.infoSection {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Error al seleccionar */
+.selectionError {
+  margin-top: 2rem;
+  text-align: center;
+  color: red;
+}
+
+

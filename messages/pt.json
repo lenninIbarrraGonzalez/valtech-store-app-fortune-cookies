@@ -1,4 +1,14 @@
 {
   "admin/test": "teste",
-  "store/test": "teste"
+  "store/test": "teste",
+  "valtech.fortune-cookies.fortuneloadingscreen": "Carregando biscoitos da sorte...",
+  "valtech.fortune-cookies.startmessagecookie-discover": "¡Descubra sua fortuna!",
+  "valtech.fortune-cookies.startmessagecookie-paragraph": "Pressione o botão para ganhar um biscoito da sorte",
+  "valtech.fortune-cookies.fortunecookies-btn-get": "Ganhe biscoito da sorte",
+  "valtech.fortune-cookies.fortunecookies-btn-lucky": "Boa sorte...",
+  "valtech.fortune-cookies.spinerselectioncookie-msn": "Selecionando seu biscoito da sorte...",
+  "valtech.fortune-cookies.showcookieresult-title": "Sua fortuna",
+  "valtech.fortune-cookies.showcookieresult-number": "Número da sorte:",
+  "valtech.fortune-cookies.showcookieresult-id": "Biscoito ID:",
+  "valtech.fortune-cookies.emptycookiestate-paragraph": "Nenhum cookie disponível."
 }

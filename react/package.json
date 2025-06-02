@@ -1,6 +1,6 @@
 {
-  "name": "CHANGE_ME",
-  "version": "0.0.0",
+  "name": "fortune-cookies",
+  "version": "0.0.1",
   "scripts": {
     "test": "vtex-test-tools test"
   },
@@ -23,5 +23,9 @@
   },
   "resolutions": {
     "@types/jest": "26.0.15"
-  }
+  },
+  "moduleNameMapper": {
+  "^vtex.styleguide$": "<rootDir>/../__mocks__/vtex.styleguide.js",
+  "^vtex.css-handles$": "<rootDir>/../__mocks__/vtex.css-handles.js"
+}
 }
