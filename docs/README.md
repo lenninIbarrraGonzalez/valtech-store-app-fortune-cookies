@@ -1,114 +1,130 @@
-📢 Use this project, [contribute](https://github.com/{OrganizationName}/{AppName}) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+# Fortune Cookies VTEX App
 
-# APP NAME
+Fortune Cookies es una aplicación para VTEX IO que muestra mensajes aleatorios de galletas de la fortuna y un número de la suerte en tu tienda. Los mensajes se almacenan en Master Data y la app es personalizable e internacionalizable.
 
-<!-- DOCS-IGNORE:start -->
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-<!-- DOCS-IGNORE:end -->
+---
 
-Under the app's name, you should explain the topic, giving a **brief description** of its **functionality** in a store when installed.
+## ![Demo de la app](tutorialcustom.gif)
 
-Next, **add media** (either an image of a GIF) with the rendered components, so that users can better understand how the app works in practice. 
+## 🚀 Instalación y despliegue
 
-![Media Placeholder](https://user-images.githubusercontent.com/52087100/71204177-42ca4f80-227e-11ea-89e6-e92e65370c69.png)
+### 1. Clona el repositorio
 
-## Configuration 
+```sh
+git clone https://github.com/tu-org/fortune-cookies.git
+cd fortune-cookies
+```
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
+### 2. Instala dependencias
 
-1. Adding the app as a theme dependency in the `manifest.json` file;
-2. Declaring the app's main block in a given theme template or inside another block from the theme.
+```sh
+cd react
+yarn install
+```
 
-Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/). 
+### 3. Ejecuta pruebas locales
 
-Next, add the **props table** containing your block's props. 
+```sh
+yarn test
+```
 
-If the app exports more than one block, create several tables - one for each block. For example:
+### 4. Despliega en VTEX IO
 
-### `block-1` props
+```sh
+vtex login <account>
+vtex use <workspace>
+vtex link
+```
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+---
 
+## 🏗️ Arquitectura
 
-### `block-2` props
+- **react/**
+  - **components/**: Componentes visuales y de UI.
+  - **hooks/**: Custom hooks para lógica de negocio.
+  - **interfaces/**: Tipos e interfaces TypeScript.
+  - **services/**: Servicios para integración con Master Data.
+  - **utils/**: Utilidades y helpers.
+  - **mocks/**: Mocks para pruebas unitarias.
+  - **styles/**: Archivos CSS y CSS Handles.
+- **store/**: Declaración de bloques para VTEX Store Framework.
+- **messages/**: Archivos de internacionalización (i18n).
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+---
 
-Prop types are: 
+## 🔗 Integraciones y Endpoints
 
-- `string` 
-- `enum` 
-- `number` 
-- `boolean` 
-- `object` 
-- `array` 
+### Master Data API
 
-When documenting a prop whose type is `object` or `array` another prop table will be needed. You can create it following the example below:
+La app obtiene las galletas de la fortuna desde Master Data:
 
-- `propName` object:
+- **GET /api/dataentities/CF/search**
+  - **Parámetros**:  
+    `_fields=id,CookieFortune`, `_from=0&_to=99`
+  - **Headers**:  
+    `X-VTEX-API-AppKey`, `X-VTEX-API-AppToken`, `REST-Range`
+  - **Ejemplo**:
+    ```js
+    fetch(
+      '/api/dataentities/CF/search?_fields=id,CookieFortune&_from=0&_to=99',
+      {
+        method: 'GET',
+        headers: {
+          'X-VTEX-API-AppKey': '...',
+          'X-VTEX-API-AppToken': '...',
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'REST-Range': 'resources=0-400',
+        },
+      }
+    )
+    ```
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+### VTEX Styleguide
 
+- Uso de componentes como Spinner para feedback visual.
 
-Remember to also use this Configuration section to  **showcase any necessary disclaimer** related to the app and its blocks, such as the different behavior it may display during its configuration. 
+### VTEX CSS Handles
 
-## Modus Operandi *(not mandatory)*
+- Permite personalización visual desde el Store Theme.
 
-There are scenarios in which an app can behave differently in a store, according to how it was added to the catalog, for example. It's crucial to go through these **behavioral changes** in this section, allowing users to fully understand the **practical application** of the app in their store.
+---
 
-If you feel compelled to give further details about the app, such as it's **relationship with the VTEX admin**, don't hesitate to use this section. 
+## 🎨 Personalización
 
-## Customization
+Puedes modificar los mensajes de la fortuna en Master Data (entidad CF).  
+Los textos son internacionalizables (`messages/`).  
+Los estilos pueden personalizarse usando los siguientes CSS Handles:
 
-The first thing that should be present in this section is the sentence below, showing users the recipe pertaining to CSS customization in apps:
+| CSS Handle          | Descripción             |
+| ------------------- | ----------------------- |
+| container           | Contenedor principal    |
+| containerInfo       | Info de contenedor      |
+| cookieIcon          | Icono de galleta        |
+| buttonSend          | Contenedor del botón    |
+| mainButton          | Botón principal         |
+| buttonDisabled      | Botón deshabilitado     |
+| buttonEnabled       | Botón habilitado        |
+| loadingContainer    | Contenedor de carga     |
+| generatingContainer | Contenedor de selección |
+| fortuneCard         | Tarjeta de fortuna      |
+| fortuneTitle        | Título de fortuna       |
+| fortuneText         | Texto de fortuna        |
+| luckySection        | Sección de la suerte    |
+| luckyNum            | Número de la suerte     |
+| cookieId            | ID de la galleta        |
 
-`In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).`
+---
 
-Thereafter, you should add a single column table with the available CSS handles for the app, like the one below. Note that the Handles must be ordered alphabetically.
+## 🧪 Pruebas
 
-| CSS Handles |
-| ----------- | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` |
+- Pruebas unitarias con Jest y React Testing Library.
+- Módulos de VTEX mockeados para pruebas fuera de VTEX IO.
+- Ejecuta `yarn test` en la carpeta `react`.
 
+---
 
-If there are none, add the following sentence instead:
-
-`No CSS Handles are available yet for the app customization.`
-
-<!-- DOCS-IGNORE:start -->
-
-## Contributors ✨
-
-Thanks goes to these wonderful people:
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
-
-<!-- DOCS-IGNORE:end -->
-
----- 
-
-Check out some documentation models that are already live: 
-- [Breadcrumb](https://github.com/vtex-apps/breadcrumb)
-- [Image](https://vtex.io/docs/components/general/vtex.store-components/image)
-- [Condition Layout](https://vtex.io/docs/components/all/vtex.condition-layout@1.1.6/)
-- [Add To Cart Button](https://vtex.io/docs/components/content-blocks/vtex.add-to-cart-button@0.9.0/)
-- [Store Form](https://vtex.io/docs/components/all/vtex.store-form@0.3.4/)
+¿Dudas o sugerencias?  
+Abre un issue o contacta al equipo de desarrollo.
+Implementado por: Lennin Ibarra Desarrollador Frontend - ing.lenninibarra@gmail.com
